@@ -13,22 +13,29 @@ CPunchPunch is developed using **C++ and Raylib**. Follow the instructions below
 Make sure you have the following installed:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
-- **C/C++ Extension** by Microsoft (available in VS Code Extensions)
+- **C/C++ Extension** by Microsoft
+- **CMake Tools Extension** by Microsoft
 - [Git](https://git-scm.com/downloads)
-- [W64Devkit](https://github.com/skeeto/w64devkit/releases) — C++ compiler and build tools for Windows
+- [MSYS2](https://www.msys2.org/)
 
-After installing W64Devkit, add its `bin` folder to your system's PATH environment variable.
+Open the **MSYS2 MINGW64** terminal and install the required development tools:
 
-Verify the installations in the VS Code terminal:
+```bash
+pacman -S --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja git
+```
+
+Verify that the tools are installed:
 
 ```bash
 g++ --version
+cmake --version
+ninja --version
 git --version
 ```
 
 ### 2. Clone the Repository
 
-Open the VS Code terminal and run:
+Open your terminal and run:
 
 ```bash
 git clone https://github.com/USERNAME/CPunchPunch.git
@@ -37,33 +44,53 @@ cd CPunchPunch
 
 Replace `USERNAME` with the repository owner's GitHub username.
 
-### 3. Set Up Raylib
+### 3. Configure Raylib
 
-We recommend using the [Raylib Quickstart Template](https://github.com/raylib-extras/raylib-quickstart) for the initial build configuration.
+Raylib is automatically downloaded and configured through **CMake**, so there is no need to install it manually.
 
-1. Download the Raylib Quickstart template.
-2. Follow its Windows MinGW-w64 setup instructions.
-3. Configure the project to use Raylib with C++.
-4. Ensure the Raylib dependencies and build configuration are included in the CPunchPunch project.
+From the main `CPunchPunch` directory, run:
 
-**Note:** Raylib is written in C but supports C++. Make sure the project compiles `.cpp` files using `g++`.
+```bash
+cmake -S . -B build -G Ninja
+```
+
+This configures the project and downloads Raylib 5.5 during the initial setup.
 
 ### 4. Build & Run
 
-Once Raylib is configured, open the CPunchPunch folder in VS Code.
+Compile the game:
 
-Use the build task configured for the project (`Ctrl + Shift + B`), or run the appropriate Make command if using the Quickstart Makefile.
+```bash
+cmake --build build
+```
 
-Run the generated executable to launch CPunchPunch.
+Launch CPunchPunch:
+
+```bash
+./build/CPunchPunch.exe
+```
+
+**For subsequent runs**, after making changes to the code, simply run:
+
+```bash
+cmake --build build
+./build/CPunchPunch.exe
+```
+
+All commands should be run from the main `CPunchPunch` directory using the **MSYS2 MINGW64 terminal**.
 
 ### 5. Troubleshooting
 
-- **`g++` not recognized:** Check that W64Devkit's `bin` folder is added to PATH.
-- **`raylib.h` not found:** Verify that Raylib's include directories are configured correctly.
-- **Linker errors:** Make sure Raylib and its required Windows libraries are linked correctly.
-- **Build errors:** Confirm that the build configuration compiles C++ files rather than only C files.
+- **`g++` not recognized:** Make sure you are using the MSYS2 MINGW64 environment and have installed the compiler.
+- **`raylib.h` not found:** Verify that CMake configured successfully. If the project builds but VS Code still shows an error, configure IntelliSense to use the CMake Tools extension.
+- **Missing `CMakeCache.txt`:** Run `cmake -S . -B build -G Ninja` before building.
+- **Build errors:** Verify that CMake, Ninja, and the C++ compiler are installed correctly.
+
+**Note:** The `build/` directory is automatically generated and should be included in `.gitignore`.
 
 For additional information, refer to the [Raylib documentation](https://www.raylib.com/).
+
+---
 
 ## 🎮 Game Mechanics
 
@@ -101,8 +128,10 @@ Both game modes are currently being considered, and the final direction will dep
 ## 🛠️ Technologies
 
 - **Language:** C++
-- **Graphics Library:** Raylib
+- **Graphics Library:** Raylib 5.5
 - **Programming Paradigm:** Object-Oriented Programming (OOP)
+- **Build System:** CMake + Ninja
+- **Development Environment:** Visual Studio Code
 - **Game Type:** 2D Fighting Game
 
 ## 🚧 Development Status

@@ -1,13 +1,14 @@
 
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)    # specifies the minimum CMake version
 
-project(CPunchPunch LANGUAGES CXX)
+project(CPunchPunch LANGUAGES CXX)      # names our project plus says C++ is the languaage
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)              # uses C++ 17
+set(CMAKE_CXX_STANDARD_REQUIRED ON)     
 
-# Download Raylib automatically if not installed
-include(FetchContent)
+# Below are just commands to download Raylib automatically if not installed
+
+include(FetchContent)                   # enables downloading external libraries
 
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
@@ -19,8 +20,12 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
+
 # Create game executable
-add_executable(CPunchPunch src/main.cpp)
+add_executable(CPunchPunch
+    src/main.cpp
+    src/HomePage.cpp
+)
 
 # Link Raylib
-target_link_libraries(CPunchPunch PRIVATE raylib)
+target_link_libraries(CPunchPunch PRIVATE raylib) #	connects your game to Raylib
