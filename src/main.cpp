@@ -1,46 +1,39 @@
-
+// initiliaze the game play + window
 #include "raylib.h"
+#include "HomePage.h"
 
 int main()
 {
-    const int screenWidth = 1000;
-    const int screenHeight = 600;
-
-    InitWindow(screenWidth, screenHeight, "CPunchPunch");
+    InitWindow(1000, 600, "CPunchPunch");
     SetTargetFPS(60);
 
-    float playerX = 400;
-    float playerY = 300;
-    float speed = 300;
+    HomePage homePage; // create our HomePage object
+    homePage.Load();
+    bool gameStarted = false; // false means we on homescreen, true means we started game
 
     while (!WindowShouldClose())
     {
+        if (!gameStarted && homePage.StartClicked())
+        {
+            gameStarted = true;
+        }
 
-        float dt = GetFrameTime();
+        BeginDrawing();            // telling Raylib we are going to draw a new frame
+        ClearBackground(DARKBLUE); // this clears the window, removing any drawings
 
-        // Movement
-        if (IsKeyDown(KEY_RIGHT))
-            playerX += speed * dt;
-        if (IsKeyDown(KEY_LEFT))
-            playerX -= speed * dt;
-        if (IsKeyDown(KEY_UP))
-            playerY -= speed * dt;
-        if (IsKeyDown(KEY_DOWN))
-            playerY += speed * dt;
-
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawText("CPunchPunch", 20, 20, 30, BLACK);
-        DrawText("Use arrow keys to move!", 20, 60, 20, DARKGRAY);
-
-        // Temporary player
-        DrawRectangle((int)playerX, (int)playerY, 50, 70, BLUE);
+        if (!gameStarted)
+        {
+            homePage.Draw();
+        }
+        else
+        {
+            DrawText("Game Started!", 350, 250, 40, BLACK);
+        }
 
         EndDrawing();
     }
 
+    homePage.Unload();
     CloseWindow();
     return 0;
 }
