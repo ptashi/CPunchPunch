@@ -1,6 +1,8 @@
 // initiliaze the game play + window
 #include "raylib.h"
 #include "HomePage.h"
+#include "GameState.h"
+#include "Gameplay.h"
 
 int main()
 {
@@ -8,7 +10,9 @@ int main()
     SetTargetFPS(60);
 
     HomePage homePage; // create our HomePage object
+    Gameplay game; // create Gameplay object
     homePage.Load();
+    game.Load();
     bool gameStarted = false; // false means we on homescreen, true means we started game
 
     while (!WindowShouldClose())
@@ -27,13 +31,15 @@ int main()
         }
         else
         {
-            DrawText("Game Started!", 350, 250, 40, BLACK);
+            game.Update();
+            game.Draw();
         }
 
         EndDrawing();
     }
 
     homePage.Unload();
+    game.Unload();
     CloseWindow();
     return 0;
 }

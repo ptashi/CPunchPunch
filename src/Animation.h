@@ -1,0 +1,83 @@
+#ifndef ANIMATION_H
+#define ANIMATION_H
+
+#include "raylib.h"
+#include <vector>
+
+struct Animation
+{
+    int first; // first frame of animation
+    int last; // last frame of animation
+    int curr; // current frame
+    int dir; // forward looping or backwards looping
+
+    bool looping = false;
+    bool idling = false;
+    bool finished;
+
+    float speed;
+    float duration_left;
+};
+
+enum AnimState
+{
+    ANIM_IDLE,
+    ANIM_WALK_BACK,
+    ANIM_WALK_FORWARD,
+    ANIM_LIGHT_PUNCH,
+    ANIM_HEAVY_PUNCH,
+    ANIM_COUNT
+};
+
+// When we include Animation.h in Gameplay.h for the Animation struct, a double declaration of these functions occurs
+// inline makes it so the compiler ignores these duplicates.
+inline void animation_update(Animation *self) {
+    float dt = GetFrameTime();
+    self->duration_left -= dt;
+
+        if (self->duration_left <= 0) {
+            self->duration_left = self->speed;
+            self->curr += self->dir;
+
+            if (self->curr > self->last) {
+                //repeating
+                if (self->idling == true) {
+                    self->curr = self->last - 1;
+                    self->dir = -1;
+                }
+                else if (self->looping == true) {
+                    self->curr = self->first;
+                }
+                else {
+                    self->curr = self->last;
+                    self->finished = true;
+                }
+            }
+        }
+
+        if (self->curr < self->first) {
+            self->curr = self->first + 1;
+            self->dir = 1;
+        }
+};
+
+inline Rectangle animation_frame(Animation *self, int num_frames_per_row, Texture2D image) {
+    int x = (self->curr % num_frames_per_row) * (image.width/4);
+    int y = (self->curr / num_frames_per_row) * (image.height/5);
+
+    return (Rectangle) {
+        .x = (float)x,
+        .y = (float)y,
+        .width = (float)image.width/4,
+        .height = (float)image.height/5
+    };
+};
+
+inline void animation_reset(Animation *self) {
+    self->curr = self->first;
+    self->dir = 1;
+    self->duration_left = self->speed;
+    self->finished = false;
+};
+
+#endif
