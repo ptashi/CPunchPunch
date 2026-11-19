@@ -25,6 +25,8 @@ FetchContent_MakeAvailable(raylib)
 add_executable(CPunchPunch
     src/main.cpp
     src/HomePage.cpp
+    src/Round.cpp
+    src/RoundHud.cpp
 )
 
 # Link Raylib
