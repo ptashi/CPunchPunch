@@ -2,7 +2,7 @@
 
 **CPunchPunch** is a 2D fighting game developed using **C++**, **Object-Oriented Programming (OOP)**, and **Raylib**.
 
-Set on the University of Connecticut (UConn) campus, players will battle against characters inspired by our team members, with the ultimate goal of defeating our final boss, **Professor Songhan**.
+Set on the University of Connecticut (UConn) campus, players will battle against characters inspired by our team members, with the ultimate goal of defeating our final boss, **Professor Song Han**.
 
 ## ⚙️ Installation & Setup
 
