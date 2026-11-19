@@ -10,8 +10,8 @@ struct Player
     float width;
     float height;
     int velocity = 0;
-    float posY;
-    float posX;
+    float posY = 0;
+    float posX = 0;
 
     int jumpVelocity = 600;
     int health = 100;
