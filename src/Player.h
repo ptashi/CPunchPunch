@@ -10,8 +10,8 @@ struct Player
     float width;
     float height;
     int velocity = 0;
-    float posY = 0;
-    float posX = 0;
+    float posY;
+    float posX;
 
     int jumpVelocity = 600;
     int health = 100;
@@ -44,12 +44,6 @@ struct Player
     Animation animations[ANIM_COUNT];
     AnimState state = ANIM_IDLE;
     AnimState next = ANIM_IDLE;
-
-    inline void Load() {
-    Image sprite_sheet = LoadImage("assets/sprites/mario2.png"); // load sprite sheet as 'sprite'
-    ImageColorReplace(&sprite_sheet, WHITE, BLANK); // remove magenta background from sprite sheet
-    character_sheet = LoadTextureFromImage(sprite_sheet); // load sprite sheet as texture
-    UnloadImage(sprite_sheet);
 };
-}
+
 #endif

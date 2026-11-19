@@ -13,7 +13,7 @@ struct Animation
 
     bool looping = false;
     bool idling = false;
-    bool finished;
+    bool finished = true;
 
     float speed;
     float duration_left;
