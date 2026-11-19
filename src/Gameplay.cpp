@@ -56,7 +56,7 @@ void Gameplay::Load()
         .curr = 16,
         .dir = 1,
         .finished = false,
-        .speed = 0.09,
+        .speed = 0.08,
         .duration_left = 0.1
     };
 
@@ -85,13 +85,13 @@ void Gameplay::Update()
 
             if (move_state == 1) {
                 player1.next = ANIM_WALK_FORWARD;
-                if (player1.posX <= 744) {
-                    player1.posX += 4.5;
+                if (player1.posX <= 724) {
+                    player1.posX += 5.5;
                 }
             } else if (move_state == -1) {
                 player1.next = ANIM_WALK_BACK;
-                if (player1.posX >= -194) {
-                    player1.posX -= 4.5;
+                if (player1.posX >= -204) {
+                    player1.posX -= 5.5;
                 }
             }
         }
@@ -115,6 +115,6 @@ void Gameplay::Draw()
     //     DrawTexturePro(character_sheet, {animation_frame(&idle_animation, 4, character_sheet)}, {10, 10, (float)character_sheet.width/4, (float)character_sheet.height/3}, {0,0}, 0.0f, WHITE);
     // }
     Rectangle source = animation_frame(&player1.animations[player1.state], 4, character_sheet);
-    Rectangle dimensions = {150+player1.posX, 300, source.width*1.5f, source.height*1.5f};
+    Rectangle dimensions = {150+player1.posX, 200, source.width*2, source.height*2};
     DrawTexturePro(character_sheet, source, dimensions, {0, 0}, 0.0f, WHITE);
 }
