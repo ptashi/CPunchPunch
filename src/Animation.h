@@ -14,6 +14,7 @@ struct Animation
     bool looping = false;
     bool idling = false;
     bool finished = true;
+    bool crouching = false;
 
     float speed;
     float duration_left;
@@ -22,10 +23,17 @@ struct Animation
 enum AnimState
 {
     ANIM_IDLE,
+    ANIM_CROUCH,
     ANIM_WALK_BACK,
     ANIM_WALK_FORWARD,
     ANIM_LIGHT_PUNCH,
     ANIM_HEAVY_PUNCH,
+    ANIM_LIGHT_KICK,
+    ANIM_HEAVY_KICK,
+    ANIM_CROUCH_LP,
+    ANIM_CROUCH_HP,
+    ANIM_CROUCH_LK,
+    ANIM_CROUCH_HK, 
     ANIM_COUNT
 };
 
@@ -48,6 +56,9 @@ inline void animation_update(Animation *self) {
                 else if (self->looping == true) {
                     self->curr = self->first;
                 }
+                else if (self->crouching == true) {
+                    self->curr = self->last;
+                }
                 else {
                     self->curr = self->last;
                     self->finished = true;
@@ -63,13 +74,13 @@ inline void animation_update(Animation *self) {
 
 inline Rectangle animation_frame(Animation *self, int num_frames_per_row, Texture2D image) {
     int x = (self->curr % num_frames_per_row) * (image.width/4);
-    int y = (self->curr / num_frames_per_row) * (image.height/5);
+    int y = (self->curr / num_frames_per_row) * (image.height/10);
 
     return (Rectangle) {
         .x = (float)x,
         .y = (float)y,
         .width = (float)image.width/4,
-        .height = (float)image.height/5
+        .height = (float)image.height/10
     };
 };
 

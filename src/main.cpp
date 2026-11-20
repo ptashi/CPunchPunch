@@ -6,8 +6,15 @@
 
 int main()
 {
-    InitWindow(1000, 600, "CPunchPunch");
+    InitWindow(1280, 720, "CPunchPunch");
     SetTargetFPS(60);
+
+    // Load background image as Texture2D
+    Texture2D background = LoadTexture("assets/backgrounds/sun-background.png");
+    // Create a rectangle with source image dimensions ()
+    Rectangle source = {0, 0, 1920, 1280};
+    // Create a rectangle with target window dimensions
+    Rectangle target_dimensions = {0, 0, 1280, 720};
 
     HomePage homePage; // create our HomePage object
     Gameplay game; // create Gameplay object
@@ -23,7 +30,9 @@ int main()
         }
 
         BeginDrawing();            // telling Raylib we are going to draw a new frame
-        ClearBackground(DARKBLUE); // this clears the window, removing any drawings
+        // Draw Texture2D background and scale it from source dimensions to target dimensions
+        // DrawTexturePro(background, source, target_dimensions, {0,0}, 0.0f, WHITE);
+        ClearBackground(BLUE);
 
         if (!gameStarted)
         {
