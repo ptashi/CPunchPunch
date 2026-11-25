@@ -9,41 +9,30 @@ struct Player
 {
     float width;
     float height;
-    int velocity = 0;
-    float posY = 0;
+    float velocity = 0;
+    float posY = 300;
     float posX = 0;
 
-    int jumpVelocity = 600;
-    int health = 100;
-    int punchCount = 0;
-    int hitCount = 0;
-    int knockCount = 0;
-    int totalHitCount = 0;
-    int clashCount = 0;
+    bool locked;
+    bool grounded;
+    bool crouching;
+    int move_state;
 
-    double stunTime = 0;
-    double punchCooldown = 0;
-    double punchResetCount = 0;
-    double hitResetCount = 0;
-    double airCooldown = 0;
-    double crouchCooldown = 0;
-    double blockCooldown = 0;
-    double roundTimer = 0;
-    double time = 0;
-
-    bool isGrounded = true;   
-    bool isBlocking = false;
-    bool isCrouching = false;
-    bool isStunned = false;
-    bool isFacingRight = false;
-    bool isBlockBroken = false;
-    bool isAttacking = false;
-    bool roundTwo = false;
-    bool isClashing = false;
+    bool special2 = false;
 
     Animation animations[ANIM_COUNT];
     AnimState state = ANIM_IDLE;
     AnimState next = ANIM_IDLE;
+
+    float jump_height = 0;
+    float jump_velocity = 0;
+    int jump_dir = 0;
+
+    int input_step_1 = 0;
+    int input_step_2 = 0;
+    float input_timer_1 = 0;
+    float input_timer_2 = 0;
+    float timer = 0;
 };
 
 #endif
