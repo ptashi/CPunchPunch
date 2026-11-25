@@ -238,6 +238,11 @@ inline void aleks_animate(Player *self) {
             self->next = ANIM_JUMP;
             if (IsKeyPressed(KEY_X)) {
                 self->next = ANIM_JUMP_LK;
+            } else if (self->input_step_2 == 3 && IsKeyPressed(KEY_C)) {
+                // self->animations[ANIM_SPECIAL_2].curr = self->animations[ANIM_SPECIAL_2].first + 3;
+                // self->animations[ANIM_SPECIAL_2].duration_left = self->animations[ANIM_SPECIAL_2].speed;
+                self->next = ANIM_SPECIAL_2;
+                self->input_step_2 = 0;
             } else if (IsKeyPressed(KEY_C)) {
                 self->next = ANIM_JUMP_HK;
             }
@@ -302,6 +307,10 @@ inline void aleks_animate(Player *self) {
                 } else {
                     self->animations[ANIM_JUMP].curr = self->animations[ANIM_JUMP].last; // hold last frame of jump animation while in air
                 }
+            }
+            if (self->state == ANIM_SPECIAL_2 && !self->grounded) {
+                self->animations[ANIM_SPECIAL_2].curr = self->animations[ANIM_SPECIAL_2].first + 4;
+                self->animations[ANIM_SPECIAL_2].duration_left = self->animations[ANIM_SPECIAL_2].speed;
             }
         }
     }
